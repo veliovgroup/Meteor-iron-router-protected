@@ -29,8 +29,8 @@ Create config:
 Router.configure
   authTemplate: 'loginForm' # Render login form
   # authRoute: '/admin/login' # Redirect to login form
-  authCallback: (data, error)->
-    console.log data, error
+  authCallback: (accessGranted, error)->
+    console.log accessGranted, error
   layoutTemplate: '_layout'
   notFoundTemplate: '_404'
   loadingTemplate: 'loading'
