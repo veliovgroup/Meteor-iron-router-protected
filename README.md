@@ -29,6 +29,8 @@ Create config:
 Router.configure
   authTemplate: 'loginForm' # Render login form
   # authRoute: '/admin/login' # Redirect to login form
+  protected: true # Deny access for unauthorized users on all routes
+  allowAccess: ['admin'] # Restrict access by role on all routes
   authCallback: (accessGranted, error)->
     console.log accessGranted, error
   layoutTemplate: '_layout'
@@ -53,4 +55,12 @@ Router.route 'admin',
   authTemplate: undefined # Do not render
   authRoute: '/admin/login' # Redirect to login form
   protected: true # Deny access for unauthorized users
+```
+
+If all routes is protected, give access to `loginForm`:
+```coffeescript
+Router.route 'loginForm',
+  template: 'loginForm'
+  path: '/admin/login'
+  protected: false # Allow access to this route
 ```
