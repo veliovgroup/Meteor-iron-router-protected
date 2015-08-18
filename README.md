@@ -11,7 +11,7 @@ meteor add ostrio:iron-router-protected
 
 API:
 ========
-`Router.configure` and `Router.route` will use next properties:
+`Router.configure`, `Router.route`, and `RouteController` will use next properties:
  - `authTemplate` {*String*} - Name of the template to render, when access is denied
  - `authRoute` {*String*} - Route where user will be redirected, when access is denied
  - `authCallback` {*Function*} - This function will be triggered on each route, with current route-object as a context and two arguments:
@@ -63,4 +63,18 @@ Router.route 'loginForm',
   template: 'loginForm'
   path: '/admin/login'
   protected: false # Allow access to this route
+```
+
+Options can be defined on controllers:
+```coffeescript
+LocationController = RouteController.extend(protected: true)
+Router.route 'locations',
+  controller: 'LocationController' # Will be protected
+```
+
+Options on routes will override controller options:
+```coffeescript
+Router.route 'location',
+  controller: 'LocationController'
+  protected: false # Won't be protected
 ```
