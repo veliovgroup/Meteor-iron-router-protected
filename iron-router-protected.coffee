@@ -4,12 +4,32 @@ Listen for Router.onBeforeAction and Router.onRun to deny access to protected ro
  - current route has 'protected' property
  - current route has 'protected' and 'allowAccess' properties additionally it restricted by user role
 ###
+
+getController = (route) ->
+  if route.findControllerConstructor # for IR 1.0
+    route.findControllerConstructor()
+  else if route.findController # for IR 0.9
+    route.findController()
+  else
+    null
+
+getIronParam = (route, param) ->
+  if _.has route.options, param
+    route.options[param]
+  else if _.has getController(route)::, param # check the prototype
+    getController(route)::[param]
+  else if Router.options[param]
+    Router.options[param]
+  else
+    false
+
+
 protectRoute = ->
-  authTemplate = @route.options.authTemplate  or @route.findControllerConstructor().prototype.authTemplate or Router.options.authTemplate  or undefined
-  authRoute    = @route.options.authRoute     or @route.findControllerConstructor().prototype.authRoute or Router.options.authRoute     or '/'
-  authCallback = @route.options.authCallback  or @route.findControllerConstructor().prototype.authCallback or Router.options.authCallback  or undefined
-  allowedRoles = @route.options.allowAccess   or @route.findControllerConstructor().prototype.allowAccess or Router.options.allowAccess   or undefined
-  isProtected  = if _.has @route.options, 'protected' then @route.options.protected else if  _.has @route.findControllerConstructor().prototype, 'protected' then @route.findControllerConstructor().prototype.protected else Router.options.protected or false
+  authTemplate = getIronParam(@route, 'authTemplate')  or undefined
+  authRoute    = getIronParam(@route, 'authRoute')  or '/'
+  authCallback = getIronParam(@route, 'authCallback')  or undefined
+  allowedRoles = getIronParam(@route, 'allowedRoles')  or undefined
+  isProtected  = getIronParam(@route, 'protected')
 
   authFail = ->
     if authTemplate
