@@ -5,11 +5,11 @@ Listen for Router.onBeforeAction and Router.onRun to deny access to protected ro
  - current route has 'protected' and 'allowAccess' properties additionally it restricted by user role
 ###
 protectRoute = ->
-  authTemplate = @route.options.authTemplate  or Router.options.authTemplate  or undefined
-  authRoute    = @route.options.authRoute     or Router.options.authRoute     or '/'
-  authCallback = @route.options.authCallback  or Router.options.authCallback  or undefined
-  allowedRoles = @route.options.allowAccess   or Router.options.allowAccess   or undefined
-  isProtected  = if _.has @route.options, 'protected' then @route.options.protected else Router.options.protected or false
+  authTemplate = @route.options.authTemplate  or @route.findControllerConstructor().prototype.authTemplate or Router.options.authTemplate  or undefined
+  authRoute    = @route.options.authRoute     or @route.findControllerConstructor().prototype.authRoute or Router.options.authRoute     or '/'
+  authCallback = @route.options.authCallback  or @route.findControllerConstructor().prototype.authCallback or Router.options.authCallback  or undefined
+  allowedRoles = @route.options.allowAccess   or @route.findControllerConstructor().prototype.allowAccess or Router.options.allowAccess   or undefined
+  isProtected  = if _.has @route.options, 'protected' then @route.options.protected else if  _.has @route.findControllerConstructor().prototype, 'protected' then @route.findControllerConstructor().prototype.protected else Router.options.protected or false
 
   authFail = ->
     if authTemplate
