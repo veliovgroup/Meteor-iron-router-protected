@@ -38,13 +38,13 @@ protectRoute = ->
       @redirect authRoute
 
   switch
-    when !Meteor.user() and isProtected
+    when !Meteor.userId() and isProtected
       authCallback.call @, null, {error: 401, reason: 'Unauthorized. Only for authenticated users.'} if authCallback
       authFail.call @
-    when Meteor.user() and isProtected and !allowedRoles
+    when Meteor.userId() and isProtected and !allowedRoles
       authCallback.call @, true, null if authCallback
       @next()
-    when (Package['alanning:roles'] and allowedRoles) and (isProtected and !Meteor.user().roles.diff(allowedRoles, true))
+    when (Package['alanning:roles'] and allowedRoles) and (isProtected and Meteor.userId() and !Meteor.user().roles.diff(allowedRoles, true))
       authCallback.call @, null, {error: 403, reason: 'Forbidden. Not enough rights.'} if authCallback
       authFail.call @
     else
