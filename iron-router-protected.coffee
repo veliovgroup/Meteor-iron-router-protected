@@ -6,27 +6,22 @@ Listen for Router.onBeforeAction and Router.onRun to deny access to protected ro
 ###
 
 getController = (route) ->
-  if route.findControllerConstructor # for IR 1.0
-    route.findControllerConstructor()
-  else if route.findController # for IR 0.9
-    route.findController()
-  else
-    null
+  switch
+    when route.findControllerConstructor then route.findControllerConstructor()
+    when route.findController then route.findController()
+    else null
 
 getIronParam = (route, param) ->
-  if _.has route.options, param
-    route.options[param]
-  else if _.has getController(route)::, param # check the prototype
-    getController(route)::[param]
-  else if Router.options[param]
-    Router.options[param]
-  else
-    false
+  switch
+    when _.has route.options, param then route.options[param]
+    when _.has getController(route)::, param then getController(route)::[param]
+    when !!Router.options[param] then Router.options[param]
+    else false
 
 
 protectRoute = ->
   authTemplate = getIronParam(@route, 'authTemplate')  or undefined
-  authRoute    = getIronParam(@route, 'authRoute')  or '/'
+  authRoute    = getIronParam(@route, 'authRoute')     or '/'
   authCallback = getIronParam(@route, 'authCallback')  or undefined
   allowedRoles = getIronParam(@route, 'allowedRoles')  or undefined
   isProtected  = getIronParam(@route, 'protected')
@@ -39,16 +34,16 @@ protectRoute = ->
 
   switch
     when !Meteor.userId() and isProtected
-      authCallback.call @, null, {error: 401, reason: 'Unauthorized. Only for authenticated users.'} if authCallback
+      authCallback.call @, {error: 401, reason: 'Unauthorized. Only for authenticated users.'} if authCallback
       authFail.call @
     when Meteor.userId() and isProtected and !allowedRoles
-      authCallback.call @, true, null if authCallback
+      authCallback.call @, null, true if authCallback
       @next()
     when (Package['alanning:roles'] and allowedRoles) and (isProtected and Meteor.userId() and !Meteor.user().roles.diff(allowedRoles, true))
-      authCallback.call @, null, {error: 403, reason: 'Forbidden. Not enough rights.'} if authCallback
+      authCallback.call @, {error: 403, reason: 'Forbidden. Not enough rights.'} if authCallback
       authFail.call @
     else
-      authCallback.call @, true, null if authCallback
+      authCallback.call @, null, true if authCallback
       @next()
 
 Router.onRun ->
