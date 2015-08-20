@@ -1,0 +1,85 @@
+<head>
+  <title>demo</title>
+</head>
+<body>
+</body>
+
+<template name="_layout">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>ostrio:iron-router-protected demo</h3>
+        <ul>
+          <li><a href="https://github.com/VeliovGroup/Meteor-iron-router-protected">On GitHub</a></li>
+          <li><a href="https://atmospherejs.com/ostrio/iron-router-protected">On Atmosphere</a></li>
+        </ul>
+
+        {{> yield}}
+
+        <ul>
+          <li><a href="{{pathFor 'signUp'}}">Not protected overridden via `RouteController.extend`</a></li>
+          <li><a href="{{pathFor 'public'}}">Not protected overridden via `route` options argument</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="index">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <h4>Fully protected route via `Router.configure`</h4>
+    </div>
+  </div>
+</template>
+
+<template name="signUp">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4>Not protected overridden via `RouteController.extend`</h4>
+    </div>
+    <div class="panel-body">
+      <form id="signUp" class="form-group compact">
+        {{#if formError}}
+          <div class="alert alert-danger">{{formError}}</div>
+        {{/if}}
+        <input id="email" type="email" name="email" placeholder="first.last@example.com"  required="required" class="form-control"/>
+        <input id="password" type="password" name="password" required="required" class="form-control"/>
+        <button type="submit" class="btn btn-lg btn-block btn-success">Sign Up</button>
+      </form>
+    </div>
+  </div>
+</template>
+
+<template name="public">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4>Not protected overridden via `route` options argument</h4>
+    </div>
+    <div class="panel-body">
+      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+    </div>
+  </div>
+</template>
+
+<template name="login">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4>Not protected overridden via `route` options argument</h4>
+      <h5>Please, sign in or sign up to continue</h5>
+    </div>
+    <div class="panel-body">
+      <form id="login" class="form-group compact">
+        {{#if formError}}
+          <div class="alert alert-danger">{{formError}}</div>
+        {{/if}}
+        <input id="email" type="email" name="email" placeholder="first.last@example.com" required="required" class="form-control"/>
+        <input id="password" type="password" name="password" required="required" class="form-control"/>
+        <button type="submit" class="btn btn-lg btn-block btn-primary">Sign in</button>
+      </form>
+    </div>
+    <div class="panel-footer">
+      <a href="{{pathFor 'signUp'}}">Sign Up</a>
+    </div>
+  </div>
+</template>
