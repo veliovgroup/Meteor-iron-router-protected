@@ -3,6 +3,11 @@ Protected and restricted routes within iron-router
 Create protected and user-roles restricted routes within [iron-router](https://atmospherejs.com/iron/router).
 For roles-restricted routes, please see [`meteor-roles`](https://github.com/alanning/meteor-roles), you need to install `meteor-roles` separately to use it.
 
+This package supports `protected` option defined in, list ordered by prioritization:
+ - `Router.route()` [*overrides all*]
+ - `RouteController.extend()`
+ - `Router.configure()` [*might be overridden by any above*]
+
 Install:
 ========
 ```shell
@@ -24,7 +29,7 @@ __Note__: Don't use `authTemplate` and `authRoute` at the same time. If `authTem
 
 Usage:
 ========
-Create config:
+Create __config__:
 ```coffeescript
 Router.configure
   authTemplate: 'loginForm' # Render login form
@@ -38,7 +43,7 @@ Router.configure
   loadingTemplate: 'loading'
 ```
 
-Create protected route:
+Create __protected route__:
 ```coffeescript
 Router.route 'admin',
   template: 'admin'
@@ -57,7 +62,7 @@ Router.route 'admin',
   protected: true # Deny access for unauthorized users
 ```
 
-If all routes is protected, give access to `loginForm`:
+If __all routes__ is protected, give access to `loginForm`:
 ```coffeescript
 Router.route 'loginForm',
   template: 'loginForm'
@@ -65,14 +70,14 @@ Router.route 'loginForm',
   protected: false # Allow access to this route
 ```
 
-Options can be defined on controllers:
+Options can be defined on __controllers__:
 ```coffeescript
 LocationController = RouteController.extend(protected: true)
 Router.route 'locations',
-  controller: 'LocationController' # Will be protected
+  controller: LocationController # Will be protected
 ```
 
-Options on routes will override controller options:
+Options on routes will override __controller__ options:
 ```coffeescript
 Router.route 'location',
   controller: 'LocationController'
