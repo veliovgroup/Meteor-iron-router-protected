@@ -1,8 +1,6 @@
 <head>
   <title>demo</title>
 </head>
-<body>
-</body>
 
 <template name="_layout">
   <div class="container">
@@ -17,8 +15,9 @@
         {{> yield}}
 
         <ul>
-          <li><a href="{{pathFor 'signUp'}}">Not protected overridden via `RouteController.extend`</a></li>
-          <li><a href="{{pathFor 'public'}}">Not protected overridden via `route` options argument</a></li>
+          <li><a href="{{pathFor 'index'}}"><b>Index</b> - <small>Protected</small></a></li>
+          <li><a href="{{pathFor 'signUp'}}"><b>Sign Up</b> - <small>Not protected overridden via `RouteController.extend`</small></a></li>
+          <li><a href="{{pathFor 'public'}}"><b>Public</b> - <small>Not protected overridden via `route` options argument</small></a></li>
         </ul>
       </div>
     </div>
