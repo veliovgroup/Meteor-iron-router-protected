@@ -5,49 +5,49 @@ Listen for Router.onBeforeAction and Router.onRun to deny access to protected ro
  - current route has 'protected' and 'allowAccess' properties additionally it restricted by user role
 ###
 
-getController = (route) ->
-  switch
-    when route.findControllerConstructor then route.findControllerConstructor()
-    when route.findController then route.findController()
-    else null
+class IronRouterProtected extends IronRouterHelper
+  constructor: (@router) -> 
+    super @router
+    self = @
+    @router.onRun ->
+      self.protectRoute()
+    @router.onBeforeAction ->
+      self.protectRoute()
 
-getIronParam = (route, param) ->
-  switch
-    when _.has route.options, param then route.options[param]
-    when _.has getController(route)::, param then getController(route)::[param]
-    when !!Router.options[param] then Router.options[param]
-    else false
-
-
-protectRoute = ->
-  authTemplate = getIronParam(@route, 'authTemplate')  or undefined
-  authRoute    = getIronParam(@route, 'authRoute')     or '/'
-  authCallback = getIronParam(@route, 'authCallback')  or undefined
-  allowedRoles = getIronParam(@route, 'allowedRoles')  or undefined
-  isProtected  = getIronParam(@route, 'protected')
-
-  authFail = ->
-    if authTemplate
-      @render authTemplate
+  forbidden: ->
+    if @authTemplate
+      @currentRoute.render @authTemplate
     else
-      @redirect authRoute
+      @currentRoute.redirect @authRoute
 
-  switch
-    when !Meteor.userId() and isProtected
-      authCallback.call @, {error: 401, reason: 'Unauthorized. Only for authenticated users.'} if authCallback
-      authFail.call @
-    when Meteor.userId() and isProtected and !allowedRoles
-      authCallback.call @, null, true if authCallback
-      @next()
-    when (Package['alanning:roles'] and allowedRoles) and (isProtected and Meteor.userId() and !Meteor.user().roles.diff(allowedRoles, true))
-      authCallback.call @, {error: 403, reason: 'Forbidden. Not enough rights.'} if authCallback
-      authFail.call @
-    else
-      authCallback.call @, null, true if authCallback
-      @next()
+  getIronParam: (param) ->
+    switch
+      when _.has @currentRoute.route.options, param then @currentRoute.route.options[param]
+      when @currentController and _.has @currentController::, param then @currentController::[param]
+      when _.has @router.options, param then @router.options[param]
+      else false
 
-Router.onRun ->
-  protectRoute.call @
+  protectRoute: ->
+    @authTemplate = @getIronParam('authTemplate')  or undefined
+    @authRoute    = @getIronParam('authRoute')     or '/'
+    @authCallback = @getIronParam('authCallback')  or undefined
+    @allowedRoles = @getIronParam('allowedRoles')  or undefined
+    @isProtected  = @getIronParam('protected')
 
-Router.onBeforeAction ->
-  protectRoute.call @
+    switch
+      when not Meteor.userId() and @isProtected
+        @authCallback.call @currentRoute, {error: 401, reason: 'Unauthorized. Only for authenticated users.'} if @authCallback
+        @forbidden()
+      when Meteor.userId() and @isProtected and not @allowedRoles
+        @authCallback.call @currentRoute, null, true if @authCallback
+        @currentRoute.next()
+      when (Package['alanning:roles'] and @allowedRoles) and (@isProtected and Meteor.userId() and not Meteor.user().roles.diff(@allowedRoles, true))
+        @authCallback.call @currentRoute, {error: 403, reason: 'Forbidden. Not enough rights.'} if @authCallback
+        @forbidden()
+      else
+        @authCallback.call @currentRoute, null, true if @authCallback
+        @currentRoute.next()
+
+Meteor.startup -> new IronRouterProtected Router
+
+

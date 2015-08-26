@@ -3,7 +3,7 @@ Protected and restricted routes within iron-router
 Create protected and user-roles restricted routes within [iron-router](https://atmospherejs.com/iron/router).
 For roles-restricted routes, please see [`meteor-roles`](https://github.com/alanning/meteor-roles), you need to install `meteor-roles` separately to use it.
 
-This package supports `protected` option defined in, list ordered by prioritization:
+This package supports `protected` option defined in list below, ordered by prioritization:
  - `Router.route()` [*overrides all*]
  - `RouteController.extend()`
  - `Router.configure()` [*might be overridden by any above*]
