@@ -29,7 +29,7 @@ API:
  - `allowedGroup` {*String*} - Name of the role-group, which have access to route. __Note:__ use only with `allowedRoles` property, if `allowedRoles` is not defined check by `allowedGroup` will be omitted
  - `authCallback` {*Function*} - This function will be triggered on each route, with current route-object as a context and two arguments:
     * `error` {*Object*|*null*} - Object with `error` and `reason` properties, if access is denied
-      - `error` - `401` or `403`. `401` when access denied as for unauthorized user (). `403` when access denied by role (Not enough rights).
+      - `error` - `401` or `403`. `401` when access denied as for unauthorized user (Unauthorized. Permission denied). `403` when access denied by role (Forbidden. Not enough rights).
     * `isGranted` {*Boolean*|*null*} - `true` if access is granted
     * return `false` to prevent further code execution and rendering
     * return `true` to continue default behavior
