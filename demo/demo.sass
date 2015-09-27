@@ -1,0 +1,955 @@
+html
+  font-family: sans-serif
+  -ms-text-size-adjust: 100%
+  -webkit-text-size-adjust: 100%
+
+body
+  margin: 0
+
+a
+  background-color: transparent
+  &:active, &:hover
+    outline: 0
+
+b, strong
+  font-weight: bold
+
+h1, h2, h3, h4, h5, h6
+  margin: 0.35em 0
+  font-weight: 500
+
+h1
+  font-size: 2.0em
+  line-height: 1.2
+
+h2
+  font-size: 1.8em
+  line-height: 1.25
+
+h3
+  font-size: 1.6em
+  line-height: 1.3
+
+h4
+  font-size: 1.4em
+  line-height: 1.35
+
+h5
+  font-size: 1.2em
+  line-height: 1.5
+h6
+  font-size: 1em
+  line-height: 1.6
+
+p
+  margin-top: 0
+
+small
+  font-size: 80%
+
+pre
+  overflow: auto
+  background: rgba(0,0,0,.1)
+  border: 1px solid rgba(0,0,0,.3)
+  padding: 5px
+
+code, kbd, pre, samp
+  font-family: monospace, monospace
+  font-size: 1em
+
+button, input, optgroup, select, textarea
+  color: inherit
+  font: inherit
+  margin: 0
+
+button
+  overflow: visible
+  text-transform: none
+
+button, html input[type="button"]
+  -webkit-appearance: button
+  cursor: pointer
+
+input
+  &[type="reset"], &[type="submit"]
+    -webkit-appearance: button
+    cursor: pointer
+
+button[disabled], html input[disabled]
+  cursor: default
+
+button::-moz-focus-inner
+  border: 0
+  padding: 0
+
+input
+  &::-moz-focus-inner
+    border: 0
+    padding: 0
+  line-height: normal
+  &[type="checkbox"], &[type="radio"]
+    -webkit-box-sizing: border-box
+    -moz-box-sizing: border-box
+    box-sizing: border-box
+    padding: 0
+  &[type="number"]
+    &::-webkit-inner-spin-button, &::-webkit-outer-spin-button
+      height: auto
+  &[type="search"]
+    -webkit-appearance: textfield
+    -webkit-box-sizing: content-box
+    -moz-box-sizing: content-box
+    box-sizing: content-box
+    &::-webkit-search-cancel-button, &::-webkit-search-decoration
+      -webkit-appearance: none
+
+*
+  -webkit-box-sizing: border-box
+  -moz-box-sizing: border-box
+  box-sizing: border-box
+  &:before, &:after
+    -webkit-box-sizing: border-box
+    -moz-box-sizing: border-box
+    box-sizing: border-box
+  
+
+html
+  font-size: 62.5%
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
+body
+  font:
+    size: 1.5em
+    weight: 400
+    family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif
+  line-height: 1.6
+  color: #222
+  background-color: #F8F6ED
+
+input, button, select, textarea
+  font-family: inherit
+  font-size: inherit
+  line-height: inherit
+
+a
+  color: #337ab7
+  text-decoration: none
+  &:hover
+    color: #23527c
+  &:focus
+    color: #23527c
+    text-decoration: underline
+
+hr
+  margin-top: 20px
+  margin-bottom: 20px
+  border: 0
+  border-top: 1px solid #eeeeee
+
+[role="button"]
+  cursor: pointer
+
+.container, .container-fluid
+  margin-right: auto
+  margin-left: auto
+  padding-left: 15px
+  padding-right: 15px
+
+@media (min-width: 768px)
+  .container
+    width: 750px
+
+@media (min-width: 992px)
+  .container
+    width: 970px
+
+@media (min-width: 1200px)
+  .container
+    width: 1170px
+
+.row
+  margin-left: -15px
+  margin-right: -15px
+
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12
+  position: relative
+  min-height: 1px
+  padding-left: 15px
+  padding-right: 15px
+
+.col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11
+  float: left
+
+.col-xs-12
+  float: left
+  width: 100%
+
+.col-xs-11
+  width: 91.66666667%
+
+.col-xs-10
+  width: 83.33333333%
+
+.col-xs-9
+  width: 75%
+
+.col-xs-8
+  width: 66.66666667%
+
+.col-xs-7
+  width: 58.33333333%
+
+.col-xs-6
+  width: 50%
+
+.col-xs-5
+  width: 41.66666667%
+
+.col-xs-4
+  width: 33.33333333%
+
+.col-xs-3
+  width: 25%
+
+.col-xs-2
+  width: 16.66666667%
+
+.col-xs-1
+  width: 8.33333333%
+
+.col-xs-pull-12
+  right: 100%
+
+.col-xs-pull-11
+  right: 91.66666667%
+
+.col-xs-pull-10
+  right: 83.33333333%
+
+.col-xs-pull-9
+  right: 75%
+
+.col-xs-pull-8
+  right: 66.66666667%
+
+.col-xs-pull-7
+  right: 58.33333333%
+
+.col-xs-pull-6
+  right: 50%
+
+.col-xs-pull-5
+  right: 41.66666667%
+
+.col-xs-pull-4
+  right: 33.33333333%
+
+.col-xs-pull-3
+  right: 25%
+
+.col-xs-pull-2
+  right: 16.66666667%
+
+.col-xs-pull-1
+  right: 8.33333333%
+
+.col-xs-pull-0
+  right: auto
+
+.col-xs-push-12
+  left: 100%
+
+.col-xs-push-11
+  left: 91.66666667%
+
+.col-xs-push-10
+  left: 83.33333333%
+
+.col-xs-push-9
+  left: 75%
+
+.col-xs-push-8
+  left: 66.66666667%
+
+.col-xs-push-7
+  left: 58.33333333%
+
+.col-xs-push-6
+  left: 50%
+
+.col-xs-push-5
+  left: 41.66666667%
+
+.col-xs-push-4
+  left: 33.33333333%
+
+.col-xs-push-3
+  left: 25%
+
+.col-xs-push-2
+  left: 16.66666667%
+
+.col-xs-push-1
+  left: 8.33333333%
+
+.col-xs-push-0
+  left: auto
+
+.col-xs-offset-12
+  margin-left: 100%
+
+.col-xs-offset-11
+  margin-left: 91.66666667%
+
+.col-xs-offset-10
+  margin-left: 83.33333333%
+
+.col-xs-offset-9
+  margin-left: 75%
+
+.col-xs-offset-8
+  margin-left: 66.66666667%
+
+.col-xs-offset-7
+  margin-left: 58.33333333%
+
+.col-xs-offset-6
+  margin-left: 50%
+
+.col-xs-offset-5
+  margin-left: 41.66666667%
+
+.col-xs-offset-4
+  margin-left: 33.33333333%
+
+.col-xs-offset-3
+  margin-left: 25%
+
+.col-xs-offset-2
+  margin-left: 16.66666667%
+
+.col-xs-offset-1
+  margin-left: 8.33333333%
+
+.col-xs-offset-0
+  margin-left: 0%
+
+@media (min-width: 768px)
+  .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11
+    float: left
+  .col-sm-12
+    float: left
+    width: 100%
+  .col-sm-11
+    width: 91.66666667%
+  .col-sm-10
+    width: 83.33333333%
+  .col-sm-9
+    width: 75%
+  .col-sm-8
+    width: 66.66666667%
+  .col-sm-7
+    width: 58.33333333%
+  .col-sm-6
+    width: 50%
+  .col-sm-5
+    width: 41.66666667%
+  .col-sm-4
+    width: 33.33333333%
+  .col-sm-3
+    width: 25%
+  .col-sm-2
+    width: 16.66666667%
+  .col-sm-1
+    width: 8.33333333%
+  .col-sm-pull-12
+    right: 100%
+  .col-sm-pull-11
+    right: 91.66666667%
+  .col-sm-pull-10
+    right: 83.33333333%
+  .col-sm-pull-9
+    right: 75%
+  .col-sm-pull-8
+    right: 66.66666667%
+  .col-sm-pull-7
+    right: 58.33333333%
+  .col-sm-pull-6
+    right: 50%
+  .col-sm-pull-5
+    right: 41.66666667%
+  .col-sm-pull-4
+    right: 33.33333333%
+  .col-sm-pull-3
+    right: 25%
+  .col-sm-pull-2
+    right: 16.66666667%
+  .col-sm-pull-1
+    right: 8.33333333%
+  .col-sm-pull-0
+    right: auto
+  .col-sm-push-12
+    left: 100%
+  .col-sm-push-11
+    left: 91.66666667%
+  .col-sm-push-10
+    left: 83.33333333%
+  .col-sm-push-9
+    left: 75%
+  .col-sm-push-8
+    left: 66.66666667%
+  .col-sm-push-7
+    left: 58.33333333%
+  .col-sm-push-6
+    left: 50%
+  .col-sm-push-5
+    left: 41.66666667%
+  .col-sm-push-4
+    left: 33.33333333%
+  .col-sm-push-3
+    left: 25%
+  .col-sm-push-2
+    left: 16.66666667%
+  .col-sm-push-1
+    left: 8.33333333%
+  .col-sm-push-0
+    left: auto
+  .col-sm-offset-12
+    margin-left: 100%
+  .col-sm-offset-11
+    margin-left: 91.66666667%
+  .col-sm-offset-10
+    margin-left: 83.33333333%
+  .col-sm-offset-9
+    margin-left: 75%
+  .col-sm-offset-8
+    margin-left: 66.66666667%
+  .col-sm-offset-7
+    margin-left: 58.33333333%
+  .col-sm-offset-6
+    margin-left: 50%
+  .col-sm-offset-5
+    margin-left: 41.66666667%
+  .col-sm-offset-4
+    margin-left: 33.33333333%
+  .col-sm-offset-3
+    margin-left: 25%
+  .col-sm-offset-2
+    margin-left: 16.66666667%
+  .col-sm-offset-1
+    margin-left: 8.33333333%
+  .col-sm-offset-0
+    margin-left: 0%
+
+@media (min-width: 992px)
+  .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11
+    float: left
+  .col-md-12
+    float: left
+    width: 100%
+  .col-md-11
+    width: 91.66666667%
+  .col-md-10
+    width: 83.33333333%
+  .col-md-9
+    width: 75%
+  .col-md-8
+    width: 66.66666667%
+  .col-md-7
+    width: 58.33333333%
+  .col-md-6
+    width: 50%
+  .col-md-5
+    width: 41.66666667%
+  .col-md-4
+    width: 33.33333333%
+  .col-md-3
+    width: 25%
+  .col-md-2
+    width: 16.66666667%
+  .col-md-1
+    width: 8.33333333%
+  .col-md-pull-12
+    right: 100%
+  .col-md-pull-11
+    right: 91.66666667%
+  .col-md-pull-10
+    right: 83.33333333%
+  .col-md-pull-9
+    right: 75%
+  .col-md-pull-8
+    right: 66.66666667%
+  .col-md-pull-7
+    right: 58.33333333%
+  .col-md-pull-6
+    right: 50%
+  .col-md-pull-5
+    right: 41.66666667%
+  .col-md-pull-4
+    right: 33.33333333%
+  .col-md-pull-3
+    right: 25%
+  .col-md-pull-2
+    right: 16.66666667%
+  .col-md-pull-1
+    right: 8.33333333%
+  .col-md-pull-0
+    right: auto
+  .col-md-push-12
+    left: 100%
+  .col-md-push-11
+    left: 91.66666667%
+  .col-md-push-10
+    left: 83.33333333%
+  .col-md-push-9
+    left: 75%
+  .col-md-push-8
+    left: 66.66666667%
+  .col-md-push-7
+    left: 58.33333333%
+  .col-md-push-6
+    left: 50%
+  .col-md-push-5
+    left: 41.66666667%
+  .col-md-push-4
+    left: 33.33333333%
+  .col-md-push-3
+    left: 25%
+  .col-md-push-2
+    left: 16.66666667%
+  .col-md-push-1
+    left: 8.33333333%
+  .col-md-push-0
+    left: auto
+  .col-md-offset-12
+    margin-left: 100%
+  .col-md-offset-11
+    margin-left: 91.66666667%
+  .col-md-offset-10
+    margin-left: 83.33333333%
+  .col-md-offset-9
+    margin-left: 75%
+  .col-md-offset-8
+    margin-left: 66.66666667%
+  .col-md-offset-7
+    margin-left: 58.33333333%
+  .col-md-offset-6
+    margin-left: 50%
+  .col-md-offset-5
+    margin-left: 41.66666667%
+  .col-md-offset-4
+    margin-left: 33.33333333%
+  .col-md-offset-3
+    margin-left: 25%
+  .col-md-offset-2
+    margin-left: 16.66666667%
+  .col-md-offset-1
+    margin-left: 8.33333333%
+  .col-md-offset-0
+    margin-left: 0%
+
+@media (min-width: 1200px)
+  .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11
+    float: left
+  .col-lg-12
+    float: left
+    width: 100%
+  .col-lg-11
+    width: 91.66666667%
+  .col-lg-10
+    width: 83.33333333%
+  .col-lg-9
+    width: 75%
+  .col-lg-8
+    width: 66.66666667%
+  .col-lg-7
+    width: 58.33333333%
+  .col-lg-6
+    width: 50%
+  .col-lg-5
+    width: 41.66666667%
+  .col-lg-4
+    width: 33.33333333%
+  .col-lg-3
+    width: 25%
+  .col-lg-2
+    width: 16.66666667%
+  .col-lg-1
+    width: 8.33333333%
+  .col-lg-pull-12
+    right: 100%
+  .col-lg-pull-11
+    right: 91.66666667%
+  .col-lg-pull-10
+    right: 83.33333333%
+  .col-lg-pull-9
+    right: 75%
+  .col-lg-pull-8
+    right: 66.66666667%
+  .col-lg-pull-7
+    right: 58.33333333%
+  .col-lg-pull-6
+    right: 50%
+  .col-lg-pull-5
+    right: 41.66666667%
+  .col-lg-pull-4
+    right: 33.33333333%
+  .col-lg-pull-3
+    right: 25%
+  .col-lg-pull-2
+    right: 16.66666667%
+  .col-lg-pull-1
+    right: 8.33333333%
+  .col-lg-pull-0
+    right: auto
+  .col-lg-push-12
+    left: 100%
+  .col-lg-push-11
+    left: 91.66666667%
+  .col-lg-push-10
+    left: 83.33333333%
+  .col-lg-push-9
+    left: 75%
+  .col-lg-push-8
+    left: 66.66666667%
+  .col-lg-push-7
+    left: 58.33333333%
+  .col-lg-push-6
+    left: 50%
+  .col-lg-push-5
+    left: 41.66666667%
+  .col-lg-push-4
+    left: 33.33333333%
+  .col-lg-push-3
+    left: 25%
+  .col-lg-push-2
+    left: 16.66666667%
+  .col-lg-push-1
+    left: 8.33333333%
+  .col-lg-push-0
+    left: auto
+  .col-lg-offset-12
+    margin-left: 100%
+  .col-lg-offset-11
+    margin-left: 91.66666667%
+  .col-lg-offset-10
+    margin-left: 83.33333333%
+  .col-lg-offset-9
+    margin-left: 75%
+  .col-lg-offset-8
+    margin-left: 66.66666667%
+  .col-lg-offset-7
+    margin-left: 58.33333333%
+  .col-lg-offset-6
+    margin-left: 50%
+  .col-lg-offset-5
+    margin-left: 41.66666667%
+  .col-lg-offset-4
+    margin-left: 33.33333333%
+  .col-lg-offset-3
+    margin-left: 25%
+  .col-lg-offset-2
+    margin-left: 16.66666667%
+  .col-lg-offset-1
+    margin-left: 8.33333333%
+  .col-lg-offset-0
+    margin-left: 0%
+
+.panel
+  margin-bottom: 20px
+  background-color: #ffffff
+  border: 1px solid transparent
+
+.panel-body
+  padding: 15px
+
+.panel-heading
+  padding: 10px 15px
+  border-bottom: 1px solid transparent
+
+.panel-title
+  margin-top: 0
+  margin-bottom: 0
+  font-size: 16px
+  color: inherit
+
+.panel-footer
+  padding: 10px 15px
+  background-color: #f5f5f5
+  border-top: 1px solid #dddddd
+
+.panel-default
+  border-color: #dddddd
+  > .panel-heading
+    border-color: #dddddd
+
+.panel-primary
+  border-color: #337ab7
+  > .panel-heading
+    border-color: #337ab7
+
+.panel-success
+  border-color: #d6e9c6
+  > .panel-heading
+    border-color: #d6e9c6
+
+.panel-info
+  border-color: #bce8f1
+  > .panel-heading
+    border-color: #bce8f1
+
+.panel-warning
+  border-color: #faebcc
+  > .panel-heading
+    border-color: #faebcc
+
+.panel-danger
+  border-color: #ebccd1
+  > .panel-heading
+    border-color: #ebccd1
+
+.clearfix
+  &:before, &:after
+    content: " "
+    display: table
+
+.container
+  &:before, &:after
+    content: " "
+    display: table
+
+.container-fluid
+  &:before, &:after
+    content: " "
+    display: table
+
+.row
+  &:before, &:after
+    content: " "
+    display: table
+
+.panel-body
+  &:before, &:after
+    content: " "
+    display: table
+
+.clearfix:after, .container:after, .container-fluid:after, .row:after, .panel-body:after
+  clear: both
+
+.btn
+  display: inline-block
+  padding: 6px 12px
+  margin-bottom: 0
+  font:
+    size: 14px
+    weight: 400
+  line-height: 1.42857143
+  text-align: center
+  white-space: nowrap
+  vertical-align: middle
+  -ms-touch-action: manipulation
+  touch-action: manipulation
+  cursor: pointer
+  -webkit-user-select: none
+  -moz-user-select: none
+  -ms-user-select: none
+  user-select: none
+  background-image: none
+  border: 1px solid transparent
+  &.btn-xs
+    padding: 1px 5px
+    font-size: 12px
+    line-height: 1.5
+  &.btn-sm
+    padding: 5px 10px
+    font-size: 12px
+    line-height: 1.5
+  &.btn-lg
+    padding: 10px 16px
+    font-size: 18px
+    line-height: 1.3333333
+  &.btn-block
+    display: block
+    width: 100%
+
+button, select, input, button, form, textarea, a, pre
+  outline: none !important
+  &:active, &:focus, &:visited
+    outline: none !important
+
+$black: #333
+$danger: #d9534f
+.danger
+  color: $danger
+$success: #5cb85c
+.success
+  color: $success
+$warning: #f0ad4e
+.warning
+  color: $warning
+$primary: #337ab7
+.primary
+  color: $primary
+$info: #5bc0de
+.info
+  color: $info
+
+
+.disabled, button[disabled], fieldset[disabled] .btn
+  opacity: 0.777
+  &:focus, &:hover
+    opacity: 0.777
+
+.btn
+  transition: all .15s ease-in-out
+  background: none
+  border-color: #ccc
+  color: #555
+  &.btn-
+    &success
+      &:focus, &:hover
+        color: darken($success, 35%)
+        border-color: darken($success, 15%)
+    &primary
+      &:focus, &:hover
+        color: darken($primary, 35%)
+        border-color: darken($primary, 15%)
+    &danger
+      &:focus, &:hover
+        color: darken($danger, 35%)
+        border-color: darken($danger, 15%)
+    &info
+      &:focus, &:hover
+        color: darken($info, 35%)
+        border-color: darken($info, 20%)
+    &warning
+      &:focus, &:hover
+        color: darken($warning, 35%)
+        border-color: darken($warning, 15%)
+    &default
+      &:focus, &:hover
+        color: #000
+        border-color: #333
+  &:hover,
+  &:focus,
+  &.focus,
+  &:active,
+  &.active
+    background: rgba(0,0,0, 0.0777)
+    outline: none !important
+
+.alert
+  padding: 15px
+  margin-bottom: 20px
+  border:
+    width: 0px 0px 0px 4px
+    style: solid
+  &.alert-info
+    border-left-color: darken($info, 25%)
+    background-color: transparentize( darken($info, 15%), 0.95 )
+
+  &.alert-danger
+    border-left-color: darken($danger, 25%)
+    background-color: transparentize( darken($danger, 15%), 0.95 )
+
+  &.alert-warning
+    border-left-color: darken($warning, 25%)
+    background-color: transparentize( darken($warning, 15%), 0.95 )
+
+  &.alert-success
+    border-left-color: darken($success, 25%)
+    background-color: transparentize( darken($success, 15%), 0.95 )
+
+  &.alert-primary
+    color: $primary
+    border-left-color: darken($primary, 25%)
+    background-color: transparentize( darken($primary, 15%), 0.95 )
+
+.alert.compact
+  padding: 5px 10px
+  margin: 5px 0px
+
+input
+  height: 34px
+
+input
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075)
+  display: block
+  width: 100%
+  padding: 6px 12px
+  font-size: 14px
+  line-height: 1.42857143
+  transition: border-width .333s ease-in-out, border-color .333s ease-in-out, background .333s ease-in-out, box-shadow .333s ease-in-out
+  background-color: transparentize( $black, 0.97 )
+  border:
+    width: 0px 0px 0px 2px
+    color: $black
+    radius: 0px
+    style: solid
+  color: darken( $black, 15% )
+  margin: 0px 0px 5px 0px
+
+  &:focus
+    box-shadow: none
+    border-width: 0px 0px 0px 7px
+    border-color: lighten( $black, 5% )
+    color: darken( $black, 25% )
+    background-color: transparentize( $black, 0.9 )
+
+.panel-
+  &info
+    .panel-heading
+      background-color: transparentize( darken( $info, 15% ), 0.15)
+      color: #FAFAFA
+    input
+      background-color: transparentize( $info, 0.94 )
+      color: darken( $info, 25% )
+      border-color: $info
+      &:focus
+        border-color: lighten( $info, 5% )
+        color: darken( $info, 45% )
+        background-color: transparentize( $info, 0.9 )
+
+  &success
+    .panel-heading
+      background-color: transparentize( darken( $success, 15% ), 0.15)
+      color: #FAFAFA
+    input
+      background-color: transparentize( $success, 0.94 )
+      color: darken( $success, 35% )
+      border-color: $success
+      &:focus
+        border-color: lighten( $success, 5% )
+        color: darken( $success, 45% )
+        background-color: transparentize( $success, 0.9 )
+
+  &primary
+    .panel-heading
+      background-color: transparentize( darken( $primary, 15% ), 0.15)
+      color: #FAFAFA
+    input
+      background-color: transparentize( $primary, 0.94 )
+      color: darken( $primary, 35% )
+      border-color: $primary
+      &:focus
+        border-color: lighten( $primary, 5% )
+        color: darken( $primary, 45% )
+        background-color: transparentize( $primary, 0.9 )
+
+  &danger
+    .panel-heading
+      background-color: transparentize( darken( $danger, 15% ), 0.15)
+      color: #FAFAFA
+    input
+      background-color: transparentize( $danger, 0.94 )
+      color: darken( $danger, 35% )
+      border-color: $danger
+      &:focus
+        border-color: lighten( $danger, 5% )
+        color: darken( $danger, 45% )
+        background-color: transparentize( $danger, 0.9 )
+
+code
+  background-color: #333
+  font-size: 85%
+  color: #FAFAFA
+  padding: 2px 4px
