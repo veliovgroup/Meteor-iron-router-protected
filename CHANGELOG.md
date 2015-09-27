@@ -1,6 +1,11 @@
 Changelog
 =========
 
+ - [[`v1.1.2`](https://github.com/VeliovGroup/Meteor-iron-router-protected/releases/tag/v1.1.2)] 09/27/2015
+    * Support for Meteor@1.2.x
+    * Fix user's roles
+    * Add support for roles-groups
+    * [Demo app](http://iron-router-protected.meteor.com) enhancement
  - [[`v1.1.1`](https://github.com/VeliovGroup/Meteor-iron-router-protected/releases/tag/v1.1.1)] 08/26/2015
     * Better coffeescript (no functional changes)
  - [[`v1.1.0`](https://github.com/VeliovGroup/Meteor-iron-router-protected/releases/tag/v1.1.0)] 08/20/2015

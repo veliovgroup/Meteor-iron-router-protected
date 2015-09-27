@@ -32,23 +32,32 @@ class IronRouterProtected extends IronRouterHelper
     @authRoute    = @getIronParam('authRoute')     or '/'
     @authCallback = @getIronParam('authCallback')  or undefined
     @allowedRoles = @getIronParam('allowedRoles')  or undefined
-    @isProtected  = @getIronParam('protected')
-    @roleGroup    = @getIronParam('roleGroup')     or Roles.GLOBAL_GROUP if Package['alanning:roles']
+    @allowedGroup = @getIronParam('allowedGroup')  or undefined
+    @isProtected  = @getIronParam('protected')     or false
+
+    if (@allowedRoles or @allowedGroup) and not Package['alanning:roles']
+      throw new Meteor.Error 404, 'Package "alanning:roles" is not installed, but required to use `allowedRoles` and/or allowedGroup properties within "ostrio:iron-router-protected package"'
+
+    unless @isProtected
+      @currentRoute.next()
+      return
 
     switch
-      when not Meteor.userId() and @isProtected
-        @authCallback.call @currentRoute, {error: 401, reason: 'Unauthorized. Only for authenticated users.'} if @authCallback
-        @forbidden()
-      when Meteor.userId() and @isProtected and not @allowedRoles
-        @authCallback.call @currentRoute, null, true if @authCallback
-        @currentRoute.next()
-      when (Package['alanning:roles'] and @allowedRoles) and (@isProtected and Meteor.userId() and not Roles.userIsInRole(Meteor.userId(), @allowedRoles, @roleGroup))
-        @authCallback.call @currentRoute, {error: 403, reason: 'Forbidden. Not enough rights.'} if @authCallback
-        @forbidden()
+      when not Meteor.userId()
+        acbRes = true
+        acbRes = @authCallback.call @currentRoute, {error: 401, reason: 'Unauthorized. Only for authenticated users.'} if @authCallback
+        @forbidden() if acbRes
+      when Meteor.userId() and not @allowedRoles
+        acbRes = true
+        acbRes = @authCallback.call @currentRoute, null, true if @authCallback
+        @currentRoute.next() if acbRes
+      when Package['alanning:roles'] and Meteor.userId() and not Roles.userIsInRole(Meteor.userId(), @allowedRoles, @allowedGroup)
+        acbRes = true
+        acbRes = @authCallback.call @currentRoute, {error: 403, reason: 'Forbidden. Not enough rights.'} if @authCallback
+        @forbidden() if acbRes
       else
-        @authCallback.call @currentRoute, null, true if @authCallback
-        @currentRoute.next()
+        acbRes = true
+        acbRes = @authCallback.call @currentRoute, null, true if @authCallback
+        @currentRoute.next() if acbRes
 
 Meteor.startup -> new IronRouterProtected Router
-
-

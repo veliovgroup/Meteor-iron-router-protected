@@ -14,15 +14,25 @@ Install:
 meteor add ostrio:iron-router-protected
 ```
 
+Demo app
+========
+ - [Source](https://github.com/VeliovGroup/Meteor-iron-router-protected/tree/master/demo)
+ - [Live](http://iron-router-protected.meteor.com)
+
 API:
 ========
 `Router.configure`, `Router.route`, and `RouteController` will use next properties:
+ - `protected` {*Boolean*} - Make route explicitly protected for all unauthorized users
  - `authTemplate` {*String*} - Name of the template to render, when access is denied
  - `authRoute` {*String*} - Route where user will be redirected, when access is denied
+ - `allowedRoles` {[*String*]} - Array of roles, which have access to route
+ - `allowedGroup` {*String*} - Name of the role-group, which have access to route. __Note:__ use only with `allowedRoles` property, if `allowedRoles` is not defined check by `allowedGroup` will be omitted
  - `authCallback` {*Function*} - This function will be triggered on each route, with current route-object as a context and two arguments:
     * `accessGranted` {*Boolean*|*null*} - `true` if access is granted
     * `error` {*Object*|*null*} - Object with `error` and `reason` properties, if access is denied
       - `error` - `401` or `403`. `401` when access denied as for unauthorized user (). `403` when access denied by role (Not enough rights).
+    * return `false` to prevent further code execution and rendering
+    * return `true` to continue default behavior
 
 __Note__: Don't use `authTemplate` and `authRoute` at the same time. If `authTemplate` and `authRoute` is both presented - only `authTemplate` will be used and rendered.
 
@@ -32,16 +42,25 @@ Usage:
 Create __config__:
 ```coffeescript
 Router.configure
-  authTemplate: 'loginForm' # Render login form
-  # authRoute: '/admin/login' # Redirect to login form
-  protected: true # Deny access for unauthorized users on all routes
-  allowAccess: ['admin'] # Restrict access by role on all routes
+  # Render login form
+  authTemplate: 'loginForm' 
+  # Redirect to login form, by exact route or route-name
+  authRoute:  '/admin/login' 
+  # Deny access for unauthorized users on all routes
+  protected:    true 
+  # Restrict access by array of roles on all routes
+  allowedRoles: ['admin'] 
+  # Restrict access by role and role-group. 
+  # Use only with `allowedRoles` property, otherwise check on group is omitted
+  allowedGroup: Roles.GLOBAL_GROUP 
+  # This callback triggered each time when access is granted or forbidden for user
   authCallback: (accessGranted, error)->
     console.log accessGranted, error
+
+  # Common options:
   layoutTemplate: '_layout'
   notFoundTemplate: '_404'
   loadingTemplate: 'loading'
-  roleGroup: Roles.GLOBAL_GROUP
 ```
 
 Create __protected route__:
@@ -50,7 +69,7 @@ Router.route 'admin',
   template: 'admin'
   path: '/admin'
   protected: true # Deny access for unauthorized users
-  allowAccess: ['admin'] # Restrict access by role
+  allowedRoles: ['admin'] # Restrict access by role
 ```
 
 Override default options:
