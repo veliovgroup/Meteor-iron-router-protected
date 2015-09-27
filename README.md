@@ -41,6 +41,7 @@ Router.configure
   layoutTemplate: '_layout'
   notFoundTemplate: '_404'
   loadingTemplate: 'loading'
+  roleGroup: Roles.GLOBAL_GROUP
 ```
 
 Create __protected route__:

@@ -33,6 +33,7 @@ class IronRouterProtected extends IronRouterHelper
     @authCallback = @getIronParam('authCallback')  or undefined
     @allowedRoles = @getIronParam('allowedRoles')  or undefined
     @isProtected  = @getIronParam('protected')
+    @roleGroup    = @getIronParam('roleGroup')     or Roles.GLOBAL_GROUP if Package['alanning:roles']
 
     switch
       when not Meteor.userId() and @isProtected
@@ -41,7 +42,7 @@ class IronRouterProtected extends IronRouterHelper
       when Meteor.userId() and @isProtected and not @allowedRoles
         @authCallback.call @currentRoute, null, true if @authCallback
         @currentRoute.next()
-      when (Package['alanning:roles'] and @allowedRoles) and (@isProtected and Meteor.userId() and not Meteor.user().roles.diff(@allowedRoles, true))
+      when (Package['alanning:roles'] and @allowedRoles) and (@isProtected and Meteor.userId() and not Roles.userIsInRole(Meteor.userId(), @allowedRoles, @roleGroup))
         @authCallback.call @currentRoute, {error: 403, reason: 'Forbidden. Not enough rights.'} if @authCallback
         @forbidden()
       else
