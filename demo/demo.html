@@ -5,20 +5,41 @@
 <template name="_layout">
   <div class="container">
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-9">
         <h3>ostrio:iron-router-protected demo</h3>
         <ul>
           <li><a href="https://github.com/VeliovGroup/Meteor-iron-router-protected">On GitHub</a></li>
           <li><a href="https://atmospherejs.com/ostrio/iron-router-protected">On Atmosphere</a></li>
+          {{#if currentUser}}
+            <li><button class="btn btn-danger btn-xs" onclick="Meteor.logout()">Log out</button></li>
+          {{/if}}
         </ul>
 
         {{> yield}}
 
+        Routes:
         <ul>
-          <li><a href="{{pathFor 'index'}}"><b>Index</b> - <small>Protected</small></a></li>
-          <li><a href="{{pathFor 'signUp'}}"><b>Sign Up</b> - <small>Not protected overridden via `RouteController.extend`</small></a></li>
-          <li><a href="{{pathFor 'public'}}"><b>Public</b> - <small>Not protected overridden via `route` options argument</small></a></li>
+          <li><a href="{{pathFor 'index'}}"><b>Index</b> - <small>Protected, available for all authorized users</small></a></li>
+          {{#unless currentUser}}
+            <li><a href="{{pathFor 'signUp'}}"><b>Sign Up</b> - <small>Not protected</small></a></li>
+          {{/unless}}
+          <li><a href="{{pathFor 'public'}}"><b>Public</b> - <small>Not protected</small></a></li>
+          <li><a href="{{pathFor 'private'}}"><b>Private</b> - <small>Protected only available for users in role: `admin` and `regular`, without role dependency</small></a></li>
+          <li><a href="{{pathFor 'admin'}}"><b>Admin</b> - <small>Protected, only available for users in `admins` group</small></a></li>
         </ul>
+
+        Default users:
+        <ul>
+          <li>Role: <em>no role</em>, username: <code>user@example.com</code>, password: <code>user</code></li>
+          <li>Role: <code>regular</code>, username: <code>demo@example.com</code>, password: <code>demo</code></li>
+          <li>Role: <code>admin</code>, group: <code>admins</code>, username: <code>admin@example.com</code>, password: <code>admin</code></li>
+        </ul>
+      </div>
+      <div class="col-md-3">
+        {{#if currentUser}}
+          <h5>Current user object:</h5>
+          <pre>{{{log currentUser}}}</pre>
+        {{/if}}
       </div>
     </div>
   </div>
@@ -26,16 +47,30 @@
 
 <template name="index">
   <div class="panel panel-default">
+    <div class="panel-heading">
+      <h5>Protected route without rules</h5>
+    </div>
     <div class="panel-body">
-      <h4>Fully protected route via `Router.configure`</h4>
+      <div class="alert alert-info">This route available for all authenticated users</div>
+    </div>
+  </div>
+</template>
+
+<template name="private">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h5>Restricted by roles</h5>
+    </div>
+    <div class="panel-body">
+      <div class="alert alert-warning">This is protected route, which should be only available for users in role: <code>admin</code> and <code>regular</code>, without group dependency</div>
     </div>
   </div>
 </template>
 
 <template name="signUp">
-  <div class="panel panel-default">
+  <div class="panel panel-success">
     <div class="panel-heading">
-      <h4>Not protected overridden via `RouteController.extend`</h4>
+      <h5>Registration (Sign up)</h5>
     </div>
     <div class="panel-body">
       <form id="signUp" class="form-group compact">
@@ -53,7 +88,7 @@
 <template name="public">
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h4>Not protected overridden via `route` options argument</h4>
+      <h5>Not protected, available for any visitor</h5>
     </div>
     <div class="panel-body">
       <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
@@ -62,10 +97,9 @@
 </template>
 
 <template name="login">
-  <div class="panel panel-default">
+  <div class="panel panel-primary">
     <div class="panel-heading">
-      <h4>Not protected overridden via `route` options argument</h4>
-      <h5>Please, sign in or sign up to continue</h5>
+      <h5>Login (Sign in)</h5>
     </div>
     <div class="panel-body">
       <form id="login" class="form-group compact">
@@ -78,7 +112,33 @@
       </form>
     </div>
     <div class="panel-footer">
-      <a href="{{pathFor 'signUp'}}">Sign Up</a>
+      <a href="{{pathFor 'signUp'}}">Sign Up (Registration)</a>
+    </div>
+  </div>
+</template>
+
+<template name="admin">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h5>Admin only, restricted by roles and group</h5>
+    </div>
+    <div class="panel-body">
+      <div class="alert alert-warning">
+        If you're not logged-in as <code>admin</code> user - that means there is an error in a package, please create an issue at <a href="https://github.com/VeliovGroup/Meteor-iron-router-protected/issues/new">Iron-Router protected repository</a>. Thank you.
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="_403">
+  <div class="panel panel-danger">
+    <div class="panel-heading">
+      <h5>403: Forbidden. Not enough rights.</h5>
+    </div>
+    <div class="panel-body">
+      <div class="alert alert-danger">
+        Sorry, you have not enough rights to see this page
+      </div>
     </div>
   </div>
 </template>

@@ -2,16 +2,28 @@ Router.configure
   layoutTemplate: '_layout'
   authTemplate: 'login'
   protected: true #All routes is protected
+  authCallback: (error, isGranted) ->
+    if error and error?.error is 403
+      @render('_403')
+      @stop()
+      false
+    else
+      true
 
 signUpController = RouteController.extend
-  protected: false #Make this route accessible for all users
   template: 'signUp'
   path: '/signUp'
+  protected: false #Make this route-controller accessible for all users
 
 Router.map ->
   @route 'index',
     template: 'index'
     path: '/'
+
+  @route 'private',
+    template: 'private'
+    path: '/private'
+    allowedRoles: ['regular', 'admin']
 
   @route 'signUp', 
     controller: signUpController
@@ -20,6 +32,13 @@ Router.map ->
     template: 'public'
     path: '/public'
     protected: false #Make this route accessible for all users
+
+  @route 'admin',
+    template: 'admin'
+    path: '/admin'
+    allowedRoles: ['admin']
+    allowedGroup: 'admins'
+
 
 serializeForm = (formNode) ->
   form = {}
@@ -30,6 +49,7 @@ if Meteor.isClient
   Template.signUp.helpers
     formError: ->
       Template.instance().formError.get()
+
   Template.signUp.events
     'submit form#signUp': (e, template) ->
       template.formError.set false
@@ -72,7 +92,24 @@ if Meteor.isClient
 
 if Meteor.isServer
   Accounts.onCreateUser (options, user) ->
-    user = _.extend user, options
     user.profile = {}
-    user.emails = [{address: user.username, verified: false}]
+    user.emails = [{address: options.username, verified: false}]
     return user 
+
+  Meteor.startup ->
+    if Meteor.users.find({}).count() is 0
+      Accounts.createUser
+        username: 'user@example.com'
+        password: 'user'
+
+      demo = Accounts.createUser
+        username: 'demo@example.com'
+        password: 'demo'
+
+      Roles.addUsersToRoles demo, ['regular'], Roles.GLOBAL_GROUP
+
+      admin = Accounts.createUser
+        username: 'admin@example.com'
+        password: 'admin'
+
+      Roles.addUsersToRoles admin, ['regular', 'admin'], 'admins'
