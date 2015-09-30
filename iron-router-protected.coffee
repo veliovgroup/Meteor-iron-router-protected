@@ -9,10 +9,8 @@ class IronRouterProtected extends IronRouterHelper
   constructor: (@router) -> 
     super @router
     self = @
-    @router.onRun ->
-      self.protectRoute()
-    @router.onBeforeAction ->
-      self.protectRoute()
+    @router.onRun -> self.protectRoute()
+    @router.onBeforeAction -> self.protectRoute()
 
   forbidden: ->
     if @authTemplate
@@ -22,9 +20,9 @@ class IronRouterProtected extends IronRouterHelper
 
   getIronParam: (param) ->
     switch
-      when _.has @currentRoute.route.options, param then @currentRoute.route.options[param]
-      when @currentController and _.has @currentController::, param then @currentController::[param]
-      when _.has @router.options, param then @router.options[param]
+      when @currentRoute?.route?.options and _.has @currentRoute.route.options, param then @currentRoute.route.options[param]
+      when @currentController?.prototype and @currentController and _.has @currentController::, param then @currentController::[param]
+      when @router?.options and _.has @router.options, param then @router.options[param]
       else false
 
   protectRoute: ->
