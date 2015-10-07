@@ -54,8 +54,8 @@ Router.configure
   # Use only with `allowedRoles` property, otherwise check on group is omitted
   allowedGroup: Roles.GLOBAL_GROUP 
   # This callback triggered each time when access is granted or forbidden for user
-  authCallback: (accessGranted, error)->
-    console.log accessGranted, error
+  authCallback: (error, isGranted)->
+    console.log error, isGranted
 
   # Common options:
   layoutTemplate: '_layout'
