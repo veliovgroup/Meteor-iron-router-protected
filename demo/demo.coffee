@@ -73,8 +73,8 @@ if Meteor.isClient
 
 
   Template.login.helpers
-    formError: ->
-      Template.instance().formError.get()
+    formError: -> Template.instance().formError.get()
+    
   Template.login.events
     'submit form#login': (e, template) ->
       e.preventDefault()
@@ -87,8 +87,8 @@ if Meteor.isClient
       Meteor.loginWithPassword form.email, form.password, (error) ->
         return template.formError.set error.reason if error
       false
-  Template.login.onCreated ->
-    @formError ?= new ReactiveVar false
+
+  Template.login.onCreated -> @formError ?= new ReactiveVar false
 
 if Meteor.isServer
   Accounts.onCreateUser (options, user) ->
