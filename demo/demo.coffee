@@ -68,13 +68,12 @@ if Meteor.isClient
       false
   Template.signUp.onCreated ->
     @formError ?= new ReactiveVar false
-    Tracker.autorun ->
-      Router.go 'index' if Meteor.userId() #Redirect logged-in users
+    Tracker.autorun -> Router.go 'index' if Meteor.userId() #Redirect logged-in users
 
 
   Template.login.helpers
     formError: -> Template.instance().formError.get()
-    
+
   Template.login.events
     'submit form#login': (e, template) ->
       e.preventDefault()
