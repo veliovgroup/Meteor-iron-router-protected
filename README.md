@@ -17,7 +17,7 @@ meteor add ostrio:iron-router-protected
 Demo app
 ========
  - [Source](https://github.com/VeliovGroup/Meteor-iron-router-protected/tree/master/demo)
- - [Live](http://iron-router-protected.meteor.com)
+ - ~~Live: http://iron-router-protected.meteor.com~~ (*We are looking for free hosting for this demo*)
 
 API:
 ========
@@ -40,66 +40,76 @@ __Note__: Don't use `authTemplate` and `authRoute` at the same time. If `authTem
 Usage:
 ========
 Create __config__:
-```coffeescript
-Router.configure
-  # Render login form
-  authTemplate: 'loginForm' 
-  # Redirect to login form, by exact route or route-name
-  authRoute:  '/admin/login' 
-  # Deny access for unauthorized users on all routes
-  protected:    true 
-  # Restrict access by array of roles on all routes
-  allowedRoles: ['admin'] 
-  # Restrict access by role and role-group. 
-  # Use only with `allowedRoles` property, otherwise check on group is omitted
-  allowedGroup: Roles.GLOBAL_GROUP 
-  # This callback triggered each time when access is granted or forbidden for user
-  authCallback: (error, isGranted)->
-    console.log error, isGranted
+```javascript
+Router.configure({
+  // Render login form
+  authTemplate: 'loginForm',
+  // Redirect to login form, by exact route or route-name
+  authRoute: '/admin/login',
+  // Deny access for unauthorized users on all routes
+  "protected": true,
+  // Restrict access by array of roles on all routes
+  allowedRoles: ['admin'],
+  // Restrict access by role and role-group. 
+  // Use only with `allowedRoles` property, otherwise check on group is omitted
+  allowedGroup: Roles.GLOBAL_GROUP,
+  // This callback triggered each time when access is granted or forbidden for user
+  authCallback: function(error, isGranted) {
+    return console.log(error, isGranted);
+  },
 
-  # Common options:
-  layoutTemplate: '_layout'
-  notFoundTemplate: '_404'
+  // Common options:
+  layoutTemplate: '_layout',
+  notFoundTemplate: '_404',
   loadingTemplate: 'loading'
+});
 ```
 
 Create __protected route__:
-```coffeescript
-Router.route 'admin',
-  template: 'admin'
-  path: '/admin'
-  protected: true # Deny access for unauthorized users
-  allowedRoles: ['admin'] # Restrict access by role
+```javascript
+Router.route('admin', {
+  template: 'admin',
+  path: '/admin',
+  "protected": true, // Deny access for unauthorized users
+  allowedRoles: ['admin'] // Restrict access by role
+});
 ```
 
 Override default options:
-```coffeescript
-Router.route 'admin',
-  template: 'admin'
-  path: '/admin'
-  authTemplate: undefined # Do not render
-  authRoute: '/admin/login' # Redirect to login form
-  protected: true # Deny access for unauthorized users
+```javascript
+Router.route('admin', {
+  template: 'admin',
+  path: '/admin',
+  authTemplate: null, // Do not render
+  authRoute: '/admin/login', // Redirect to login form
+  "protected": true // Deny access for unauthorized users
+});
 ```
 
 If __all routes__ is protected, give access to `loginForm`:
-```coffeescript
-Router.route 'loginForm',
-  template: 'loginForm'
-  path: '/admin/login'
-  protected: false # Allow access to this route
+```javascript
+Router.route('loginForm', {
+  template: 'loginForm',
+  path: '/admin/login',
+  "protected": false // Allow access to this route for anyone
+});
 ```
 
 Options can be defined on __controllers__:
-```coffeescript
-LocationController = RouteController.extend(protected: true)
-Router.route 'locations',
-  controller: LocationController # Will be protected
+```javascript
+var LocationController = RouteController.extend({
+  "protected": true
+});
+
+Router.route('locations', {
+  controller: LocationController // Will be protected
+});
 ```
 
 Options on routes will override __controller__ options:
-```coffeescript
-Router.route 'location',
-  controller: 'LocationController'
-  protected: false # Won't be protected
+```javascript
+Router.route('location', {
+  controller: 'LocationController',
+  "protected": false // Won't be protected
+});
 ```

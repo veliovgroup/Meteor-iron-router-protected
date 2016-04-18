@@ -1,7 +1,7 @@
 Demo app
 =====
 
- - [See it in action](http://iron-router-protected.meteor.com) at meteor.com
+ - ~~[See it in action](http://iron-router-protected.meteor.com) at meteor.com~~ (*We are looking for free hosting for this demo*)
 
 Included routes:
  - `/` (`index`) - Protected, available for all authorized users
