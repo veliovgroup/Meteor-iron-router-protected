@@ -24,6 +24,7 @@ Router.map ->
     template: 'private'
     path: '/private'
     allowedRoles: ['regular', 'admin']
+    allowedGroup: 'admins'
 
   @route 'signUp', 
     controller: signUpController
